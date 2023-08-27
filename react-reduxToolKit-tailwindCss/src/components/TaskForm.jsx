@@ -26,7 +26,7 @@ const TaskForm = () => {
     if (params.id) {
       setTask(tasks.find((task) => task.id === params.id));
     }
-  }, [params.id, task]);
+  }, [params.id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
