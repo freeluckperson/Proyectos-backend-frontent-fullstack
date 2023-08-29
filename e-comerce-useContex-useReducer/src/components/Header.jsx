@@ -1,10 +1,10 @@
 import Filters from './Filters.jsx'
 
-const Header = ({ setFilters }) => {
+const Header = () => {
     return (
         <header>
-            <h1>React shop </h1>
-            <Filters setFilters={setFilters} />
+            <h1>React shop ⚛️ </h1>
+            <Filters />
         </header>
     );
 }

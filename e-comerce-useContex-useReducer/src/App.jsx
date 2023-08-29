@@ -10,7 +10,7 @@ import { useFilters } from "./hooks/useFilters";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const { filters, filterProducts, setFilters } = useFilters()
+  const { filterProducts } = useFilters()
 
   useEffect(() => {
     (async function fetchData() {
@@ -23,20 +23,17 @@ function App() {
     })();
   }, []);
 
-  const filterdProducts = filterProducts(products)
+  const filterdProducts = filterProducts(products).slice(0, 42)
 
   return (
     <>
-      <Header setFilters={setFilters} />
+      <Header />
       <Products products={filterdProducts} />
-      {IS_DEVELOPMENT && <Footer filters={filters} />}
+      {IS_DEVELOPMENT && <Footer />}
     </>
   );
 }
 
 export default App;
-
-
-
 
 

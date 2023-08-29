@@ -1,13 +1,16 @@
 import { useState, useId } from 'react';
 import './Filters.css'
+import { useFilters } from '../hooks/useFilters';
 
-const Filters = ({ setFilters }) => {
-    const [minPrice, setMinPrice] = useState(0);
+
+const Filters = () => {
+    const { filters: { minPrice, sortOder }, setFilters } = useFilters()
+
     const minPriceFilterId = useId()
     const categoryFilterId = useId()
+    const priceSort = useId()
 
     const HandleChangeMinPrice = e => {
-        setMinPrice(e.target.value)
         setFilters(prevState => ({
             ...prevState,
             minPrice: e.target.value
@@ -21,6 +24,15 @@ const Filters = ({ setFilters }) => {
         }))
     }
 
+    const handleChangeSort = (e) => {
+        setFilters(prevState => ({
+            ...prevState,
+            sortOrder: e.target.value
+        }))
+    }
+
+
+
 
 
 
@@ -28,10 +40,17 @@ const Filters = ({ setFilters }) => {
         <section className="filters">
             <div>
                 <label htmlFor={minPriceFilterId}>Precio a partir de: </label>
-                <input type="range" onChange={HandleChangeMinPrice} id={minPriceFilterId} min='0' max='1000' />
+                <input value={minPrice} type="range" onChange={HandleChangeMinPrice} id={minPriceFilterId} min='0' max='1000' />
                 <span>{minPrice}</span>
             </div>
 
+            <div>
+                <label htmlFor={priceSort}>Precio</label>
+                <select id={priceSort} onChange={handleChangeSort}  >
+                    <option value="asc">Menor</option>
+                    <option value="desc">Mayor</option>
+                </select>
+            </div>
             <div>
                 <label htmlFor={categoryFilterId}>Categorias</label>
                 <select id={categoryFilterId} onChange={handleChangeCategory}  >

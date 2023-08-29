@@ -8,6 +8,7 @@ export const FiltersContex = createContext();
 export function FiltersProvider({ children }) {
   const [filters, setFilters] = useState({
     category: "all",
+    sortOrder: "asc",
     minPrice: 0,
   });
 
