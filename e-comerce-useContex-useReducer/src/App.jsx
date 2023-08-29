@@ -2,26 +2,15 @@
 import { useEffect, useState } from "react";
 import { Footer, Header, Products } from "./components/index";
 import axios from 'axios'
+import { IS_DEVELOPMENT } from "./config";
+import { useFilters } from "./hooks/useFilters";
+
 
 
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [filters, setFilters] = useState({
-    category: 'all',
-    minPrice: 0
-  });
-
-  const filterProducts = (products) => {
-    return products.slice(0, 100).filter(product => {
-      return product.price >= filters.minPrice &&
-        (
-          filters.category === 'all' ||
-          product.category === filters.category
-        )
-    })
-  }
-
+  const { filters, filterProducts, setFilters } = useFilters()
 
   useEffect(() => {
     (async function fetchData() {
@@ -37,11 +26,11 @@ function App() {
   const filterdProducts = filterProducts(products)
 
   return (
-    <div>
+    <>
       <Header setFilters={setFilters} />
       <Products products={filterdProducts} />
-      <Footer filters={filters} />
-    </div>
+      {IS_DEVELOPMENT && <Footer filters={filters} />}
+    </>
   );
 }
 
