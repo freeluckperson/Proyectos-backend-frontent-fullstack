@@ -8,35 +8,34 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
 
     const addToCart = product => {
-        //ver si el product esta en el car
+        // ver si el product esta en el car
         const productInCartIndex = cart.findIndex(item => item.id === product.id)
-        if (productInCartIndex >= 0) {
-            const newCart = structuredClone(cart)
+
+        if (productInCartIndex > -1) {
+            const newCart = cart.slice()
             newCart[productInCartIndex].quantity += 1
-            setCart(newCart)
+            return setCart(newCart)
         }
-
-        // const item = cart.find(item => item.id === product.id);
-        // if (item) {
-        //     item.quantity++;
-        //     setCart(cart);
-        // }
-
-        //Producto no esta en el carrito
-        setCart(prevState => ({
-            prevState, 
-          {
+        //Si el producto no esta en el cart
+        setCart(prevState => ([
+            ...prevState,
+            {
                 ...product,
                 quantity: 1
-            }
-        }))
-}
+            },
+        ]))
+    }
 
-const clearCart = () => {
-    setCart([])
-}
-return (
-    <CartContext.Provider value={{ cart, addToCart, clearCart }} > {children}</CartContext.Provider >
-)
+    const removeFrontCart = product => {
+        setCart(prevState => prevState.filter(item => item.id !== product.id))
+    }
+
+    const clearCart = () => {
+        setCart([])
+    }
+
+    return (
+        <CartContext.Provider value={{ cart, addToCart, clearCart , removeFrontCart}} > {children}</CartContext.Provider >
+    )
 }
 

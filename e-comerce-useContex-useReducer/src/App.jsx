@@ -4,6 +4,7 @@ import { Cart, Footer, Header, Products } from "./components/index";
 import axios from 'axios'
 import { IS_DEVELOPMENT } from "./config";
 import { useFilters } from "./hooks/useFilters";
+import { CartProvider } from "./contex/cart";
 
 
 
@@ -27,10 +28,12 @@ function App() {
 
   return (
     <>
-      <Cart />
-      <Header />
-      <Products products={filterdProducts} />
-      {IS_DEVELOPMENT && <Footer />}
+      <CartProvider>
+        <Cart />
+        <Header />
+        <Products products={filterdProducts} />
+        {IS_DEVELOPMENT && <Footer />}
+      </CartProvider>
     </>
   );
 }

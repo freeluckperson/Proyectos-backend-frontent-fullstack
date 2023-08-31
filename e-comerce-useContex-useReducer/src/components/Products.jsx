@@ -1,27 +1,42 @@
 import './Products.css'
-import { AddToCartIcon } from './icons';
+import { AddToCartIcon, RemoveFromCartIcon } from './icons';
+import { useCart } from '../hooks/useCart';
 
 
 const Products = ({ products }) => {
+  const { addToCart, removeFrontCart, cart } = useCart()
+  const checkProductInCart = product => cart.some(item => item.id === product.id)
+
 
   return (
     <main className='products'>
       <ul>
-        {products.map(product => (
-          <li key={product.id}>
-            <div>
-              <button>
-                <AddToCartIcon />
-              </button>
-            </div>
-            <img src={product.thumbnail} alt={product.title} />
-            <div>
-              <strong>{product.title} - ${product.price}</strong>
-            </div>
-          </li>
-        ))}
+        {products.slice(0, 10).map(product => {
+          const isProductInCart = checkProductInCart(product)
+          return (
+            < li key={product.id} >
+              <div>
+                <button style={{ backgroundColor: isProductInCart ? "red" : "#09f" }} onClick={() => {
+                  isProductInCart
+                    ? removeFrontCart(product)
+                    : addToCart(product)
+                }}>
+                  {
+                    isProductInCart
+                      ? <RemoveFromCartIcon />
+                      : <AddToCartIcon />
+                  }
+                </button>
+              </div>
+              <img src={product.thumbnail} alt={product.title} />
+              <div>
+                <strong>{product.title} - ${product.price}</strong>
+              </div>
+            </li>
+          )
+        })}
       </ul>
-    </main>
+    </main >
   );
 }
 

@@ -5,8 +5,9 @@ import './index.css'
 import { FiltersProvider } from './contex/filters.jsx'
 
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <FiltersProvider>
     <App />
-  </FiltersProvider>,
+  </FiltersProvider>
 )
