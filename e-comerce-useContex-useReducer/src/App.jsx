@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Footer, Header, Products } from "./components/index";
+import { Cart, Footer, Header, Products } from "./components/index";
 import axios from 'axios'
 import { IS_DEVELOPMENT } from "./config";
 import { useFilters } from "./hooks/useFilters";
@@ -27,6 +27,7 @@ function App() {
 
   return (
     <>
+      <Cart />
       <Header />
       <Products products={filterdProducts} />
       {IS_DEVELOPMENT && <Footer />}
