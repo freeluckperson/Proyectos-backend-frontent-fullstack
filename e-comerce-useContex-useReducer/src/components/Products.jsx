@@ -11,7 +11,7 @@ const Products = ({ products }) => {
   return (
     <main className='products'>
       <ul>
-        {products.slice(0, 24).map(product => {
+        {products.map(product => {
           const isProductInCart = checkProductInCart(product)
           return (
             < li key={product.id} >

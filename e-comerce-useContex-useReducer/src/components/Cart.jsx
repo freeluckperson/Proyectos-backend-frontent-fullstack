@@ -16,10 +16,10 @@ const CartItem = ({ thumbnail, price, title, quantity, addToCart }) => {
             </div>
 
             <footer>
-                <small>
+                <small >
                     Qty: {quantity}
                 </small>
-                <button onClick={addToCart}>+</button>
+                <button onClick={addToCart} style={{backgroundColor: "white", color:"#09f"}}>+</button>
             </footer>
         </li>
     )
@@ -47,7 +47,7 @@ const Cart = () => {
                     ))}
                 </ul>
 
-                <button onClick={clearCart}>
+                <button onClick={clearCart} style={{backgroundColor: "white", color:"#09f"}}>
                     <ClearCartIcon />
                 </button>
             </aside>
