@@ -1,37 +1,60 @@
-import { useId } from "react";
 import './Cart.css'
-import { CartIcon, ClearCartIcon, RemoveFromCartIcon } from "./icons";
+
+import { useId } from 'react'
+import { CartIcon, ClearCartIcon } from './icons'
+import { useCart } from '../hooks/useCart.js'
+
+const CartItem = ({ thumbnail, price, title, quantity, addToCart }) => {
+    return (
+        <li>
+            <img
+                src={thumbnail}
+                alt={title}
+            />
+            <div>
+                <strong>{title}</strong> - ${price}
+            </div>
+
+            <footer>
+                <small>
+                    Qty: {quantity}
+                </small>
+                <button onClick={addToCart}>+</button>
+            </footer>
+        </li>
+    )
+}
 
 const Cart = () => {
-    const cartCheckBoxId = useId
+    const cartCheckboxId = useId()
+    const { cart, clearCart, addToCart } = useCart()
+
     return (
         <>
-            <label className="cart-button" htmlFor={cartCheckBoxId}>
+            <label className='cart-button' htmlFor={cartCheckboxId}>
                 <CartIcon />
             </label>
-            <input id={cartCheckBoxId} type="checkbox" hidden />
-            <aside className="cart">
+            <input id={cartCheckboxId} type='checkbox' hidden />
+
+            <aside className='cart'>
                 <ul>
-                    <li>
-                        <img src="https://i.dummyjson.com/data/products/1/1.jpg" alt="Iphone" />
-                        <div>
-                            <strong>iphone</strong> - $1499
-                        </div>
-                        <footer>
-                            <small>
-                                Qty: 1
-                            </small>
-                            <button>+</button>
-                        </footer>
-                    </li>
+                    {cart.map(product => (
+                        <CartItem
+                            key={product.id}
+                            addToCart={() => addToCart(product)}
+                            {...product}
+                        />
+                    ))}
                 </ul>
-                <button>
+
+                <button onClick={clearCart}>
                     <ClearCartIcon />
                 </button>
             </aside>
         </>
-    );
+    )
 }
 
-export default Cart;
+export default Cart
+
 

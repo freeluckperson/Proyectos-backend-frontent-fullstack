@@ -4,21 +4,21 @@ import { useCart } from '../hooks/useCart';
 
 
 const Products = ({ products }) => {
-  const { addToCart, removeFrontCart, cart } = useCart()
+  const { addToCart, removeFromCart, cart } = useCart()
   const checkProductInCart = product => cart.some(item => item.id === product.id)
 
 
   return (
     <main className='products'>
       <ul>
-        {products.slice(0, 10).map(product => {
+        {products.slice(0, 24).map(product => {
           const isProductInCart = checkProductInCart(product)
           return (
             < li key={product.id} >
               <div>
                 <button style={{ backgroundColor: isProductInCart ? "red" : "#09f" }} onClick={() => {
                   isProductInCart
-                    ? removeFrontCart(product)
+                    ? removeFromCart(product)
                     : addToCart(product)
                 }}>
                   {
